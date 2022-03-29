@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bs.demo.mapper.MenuMapper">
+
+    <select id="listByUserId" resultType="com.bs.demo.dto.MenuIndexDto">
+        SELECT DISTINCT m.menu_id as id,m.parent_id,m.menu_name as title,m.icon,m.url as href,m.type,m.permission,m.sort
+        FROM role_user ru
+        INNER JOIN role_menu rm ON rm.role_id = ru.role_id
+        LEFT JOIN menu m ON rm.menu_id = m.menu_id
+        <where>
+            <if test="userId != null">
+                ru.user_id = #{userId}
+            </if>
+        </where>
+        ORDER BY m.sort asc
+    </select>
+
+    <select id="listByUserIdAndType" resultType="com.bs.demo.dto.MenuIndexDto">
+        SELECT DISTINCT m.menu_id as id,m.parent_id,m.menu_name as title,m.icon,m.url as href,m.type,m.permission,m.sort
+        FROM role_user ru
+        INNER JOIN role_menu rm ON rm.role_id = ru.role_id
+        LEFT JOIN menu m ON rm.menu_id = m.menu_id
+        <where>
+            <if test="userId != null">
+                ru.user_id = #{userId}
+            </if>
+            <if test="type != null">
+                and m.type = #{type}
+            </if>
+        </where>
+        ORDER BY ifnull(m.sort,0)
+    </select>
+
+    <select id="lazyMenu" resultType="com.bs.demo.entity.Menu">
+        SELECT m.menu_id,m.parent_id,m.menu_name,m.icon,m.url,m.type,m.permission,m.sort,m.create_time,m.update_time,( SELECT count(*) FROM menu WHERE parent_id = m.menu_id ) AS hasChildren
+        FROM
+            menu m
+        WHERE
+            parent_id = #{menuId}
+          AND menu_id >1
+    </select>
+</mapper>

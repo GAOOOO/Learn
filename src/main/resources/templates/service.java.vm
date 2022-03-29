@@ -1,0 +1,21 @@
+package ${package.Service};
+
+import com.bs.demo.common.Result;
+import ${package.Entity}.${entity};
+import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
+
+/**
+ *
+ * @author gf
+ * @since 2021-12-28
+ */
+public interface ${table.serviceName} extends IService<${entity}> {
+
+    Result add${entity}(${entity} ${table.entityPath});
+
+    Result update${entity}(${entity} ${table.entityPath});
+
+    Result delete${entity}(List<${entity}> ${table.entityPath}List);
+}

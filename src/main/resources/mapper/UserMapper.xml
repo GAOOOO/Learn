@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bs.demo.mapper.UserMapper">
+
+    <resultMap id="UserRoleResultMap" type="com.bs.demo.entity.User">
+        <collection property="role" javaType="java.util.List" ofType="com.bs.demo.entity.Role">
+            <id column="role_id" property="roleId"></id>
+            <id column="role_name" property="roleName"></id>
+            <id column="description" property="description"></id>
+        </collection>
+    </resultMap>
+</mapper>

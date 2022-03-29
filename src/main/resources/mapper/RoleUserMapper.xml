@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bs.demo.mapper.RoleUserMapper">
+
+    <select id="getRoleUserByUserId" resultType="com.bs.demo.entity.RoleUser">
+        select * from role_user ru where ru.user_id = #{userId}
+    </select>
+
+    <select id="getRoleByUserId" resultType="com.bs.demo.entity.Role">
+        select  * from role ro, role_user ru where ru.user_id = #{userId} AND ru.role_id = ro.role_id
+    </select>
+</mapper>

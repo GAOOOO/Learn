@@ -1,0 +1,48 @@
+package ${package.ServiceImpl};
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bs.demo.common.Result;
+import com.bs.demo.common.ResultCode;
+
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+import com.bs.demo.mapper.${table.mapperName};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+/**
+ *
+ * @author gf
+ * @since 2021-12-28
+ */
+@Service
+public class ${table.serviceImplName} extends ServiceImpl<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+
+    @Autowired
+    private ${table.mapperName} ${table.entityPath}Mapper;
+
+
+    @Override
+    public Result add${entity}(${entity} ${table.entityPath}) {
+        return Result.success().message("添加成功！");
+    }
+
+    @Override
+    public Result update${entity}(${entity} ${table.entityPath}) {
+        return Result.success().message("修改成功");
+    }
+
+    @Override
+    public Result delete${entity}(List<${entity}> ${table.entityPath}List) {
+        List<Integer> ids = ${table.entityPath}List.stream().map(${entity}::get${entity}Id).collect(Collectors.toList());
+        ${table.entityPath}Mapper.deleteBatchIds(ids);
+        return Result.success().message("删除成功！");
+    }
+}
